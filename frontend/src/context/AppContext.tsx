@@ -17,7 +17,7 @@ interface AppContextType {
   
   user: User | null;
   isLoggedIn: boolean;
-  login: (user: User) => void;
+  login: (user: User) => Promise<void>;
   logout: () => void;
   updateUser: (updates: Partial<User>) => void;
   
@@ -455,29 +455,30 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   
   }, []);
 
-  const login = (newUser: User) => {
+  const login = async (newUser: User) => {
     setUser(newUser);
     localStorage.setItem('vakya_user', JSON.stringify(newUser));
-    
-    upsertUser({
-      id: newUser.id,
-      email: newUser.email,
-      name: newUser.name,
-      photo: newUser.photo,
-      plan: newUser.plan,
-    })
-      .then(({ user: dbUser }) => {
-        const merged: User = {
-          ...newUser,
-          phone: dbUser.phone || '',
-          email_alerts: dbUser.email_alerts ?? true,
-          weekly_digest: dbUser.weekly_digest ?? false,
-          risk_alerts: dbUser.risk_alerts ?? true,
-        };
-        setUser(merged);
-        localStorage.setItem('vakya_user', JSON.stringify(merged));
-      })
-      .catch(console.error);
+
+    try {
+      const { user: dbUser } = await upsertUser({
+        id: newUser.id,
+        email: newUser.email,
+        name: newUser.name,
+        photo: newUser.photo,
+        plan: newUser.plan,
+      });
+      const merged: User = {
+        ...newUser,
+        phone: dbUser.phone || '',
+        email_alerts: dbUser.email_alerts ?? true,
+        weekly_digest: dbUser.weekly_digest ?? false,
+        risk_alerts: dbUser.risk_alerts ?? true,
+      };
+      setUser(merged);
+      localStorage.setItem('vakya_user', JSON.stringify(merged));
+    } catch (err) {
+      console.error(err);
+    }
   };
   const logout = () => {
     setUser(null);

@@ -38,7 +38,7 @@ const Login = () => {
         });
         const userInfo = await res.json();
 
-        login({
+        await login({
           id: `google_${userInfo.sub}`,
           name: userInfo.name || 'User',
           email: userInfo.email,
@@ -70,8 +70,8 @@ const Login = () => {
     setIsLoading(true);
 
     
-    setTimeout(() => {
-      login({
+    setTimeout(async () => {
+      await login({
         id: 'email_' + Date.now(),
         name: isSignUp ? name : (email.split('@')[0] || 'User'),
         email,
