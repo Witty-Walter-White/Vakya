@@ -6,7 +6,7 @@ import {
   RotateCcw, X, Layers, GitBranch, FileText, ExternalLink, Loader2, Download, Clock
 } from 'lucide-react';
 import './Analysis.css';
-import { uploadDocument, analyzeDocument, saveContract, fetchContractDetail, fetchConfig } from '../api/client';
+import { uploadDocument, analyzeDocument, saveContract, fetchContractDetail, fetchConfig, ApiError } from '../api/client';
 import { useApp } from '../context/AppContext';
 import ContractChat from '../components/ContractChat';
 import BookLoader from '../components/BookLoader';
@@ -183,6 +183,7 @@ const Analysis = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [minAnimationDone, setMinAnimationDone] = useState(false);
+  const [analysisError, setAnalysisError] = useState<string | null>(null);
 
 
   useEffect(() => {
@@ -255,7 +256,13 @@ const Analysis = () => {
       return () => clearInterval(interval);
     }
 
-    
+
+    if (!user?.id) {
+      navigate('/login', { state: { from: location.pathname, file }, replace: true });
+      return;
+    }
+
+
     const runAnalysis = async () => {
       try {
         setAgents(current => current.map((a, i) => i === 0 ? { ...a, status: 'active' } : a));
@@ -288,7 +295,7 @@ const Analysis = () => {
         ));
 
         
-        const analyzeRes = await analyzeDocument(clauses);
+        const analyzeRes = await analyzeDocument(clauses, user.id);
         const { analyzed_clauses } = analyzeRes;
         
         
@@ -378,12 +385,17 @@ const Analysis = () => {
         setIsLoaded(true);
       } catch (err) {
         console.error('Analysis failed', err);
+        setAnalysisError(
+          err instanceof ApiError
+            ? err.message
+            : 'Something went wrong while analyzing this document. Please try again.'
+        );
         setIsLoaded(true);
       }
     };
-    
+
     runAnalysis();
-  }, [isLoaded, file, isCached, id, user?.id]);
+  }, [isLoaded, file, isCached, id, user?.id, navigate, location.pathname]);
 
   const toggleAgentExpand = (id: number) => {
     setExpandedAgents(prev => {
@@ -447,7 +459,22 @@ const Analysis = () => {
     }, 250);
   };
 
-  
+
+  if (analysisError) {
+    return (
+      <div className="loading-screen">
+        <div className="analysis-error-card">
+          <AlertTriangle size={32} />
+          <h3>Analysis unavailable</h3>
+          <p>{analysisError}</p>
+          <button className="btn btn-primary" onClick={() => navigate('/app')}>
+            Back to Upload
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   if (!workspaceRevealed) {
     return (
       <div className="loading-screen">

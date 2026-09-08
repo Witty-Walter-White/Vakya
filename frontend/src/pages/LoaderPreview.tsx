@@ -15,7 +15,7 @@ const LoaderPreview = () => {
 
   useEffect(() => {
     setComplete(false);
-    const t = setTimeout(() => setComplete(true), 2500);
+    const t = setTimeout(() => setComplete(true), 1200);
     return () => clearTimeout(t);
   }, [key]);
 

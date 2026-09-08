@@ -209,8 +209,26 @@ async def upload_document(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+DAILY_ANALYSIS_LIMIT = 10
+
+
 @app.post("/api/analyze")
 async def analyze_document(payload: ClausesPayload):
+    if not payload.user_id:
+        raise HTTPException(status_code=401, detail="Please sign in to analyze a document.")
+    if not db.get_user(payload.user_id):
+        raise HTTPException(status_code=401, detail="Invalid or unknown account. Please sign in again.")
+
+    try:
+        used_today = db.count_analyses_today(payload.user_id)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    if used_today >= DAILY_ANALYSIS_LIMIT:
+        raise HTTPException(
+            status_code=429,
+            detail=f"Daily analysis limit reached ({DAILY_ANALYSIS_LIMIT}/day). Please try again tomorrow.",
+        )
+
     try:
         if not payload.clauses:
             raise HTTPException(status_code=400, detail="No clauses provided for analysis")
@@ -219,6 +237,8 @@ async def analyze_document(payload: ClausesPayload):
             "status": "success",
             "analyzed_clauses": result.get("analyzed_clauses", [])
         }
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

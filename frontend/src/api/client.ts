@@ -1,5 +1,24 @@
 export const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
+export class ApiError extends Error {
+  status: number;
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = 'ApiError';
+    this.status = status;
+  }
+}
+
+const readErrorDetail = async (response: Response, fallback: string) => {
+  try {
+    const body = await response.json();
+    if (body?.detail) return String(body.detail);
+  } catch {
+
+  }
+  return fallback;
+};
+
 export const fetchConfig = async () => {
   const response = await fetch(`${API_BASE_URL}/config`);
   if (!response.ok) throw new Error('Failed to fetch config');
@@ -15,13 +34,15 @@ export const uploadDocument = async (file: File) => {
   return response.json();
 };
 
-export const analyzeDocument = async (clauses: any[]) => {
+export const analyzeDocument = async (clauses: any[], userId?: string) => {
   const response = await fetch(`${API_BASE_URL}/analyze`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ clauses }),
+    body: JSON.stringify({ clauses, user_id: userId }),
   });
-  if (!response.ok) throw new Error('Failed to analyze document');
+  if (!response.ok) {
+    throw new ApiError(await readErrorDetail(response, 'Failed to analyze document'), response.status);
+  }
   return response.json();
 };
 

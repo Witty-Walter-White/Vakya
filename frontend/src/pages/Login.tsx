@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useGoogleLogin } from '@react-oauth/google';
@@ -8,7 +8,18 @@ import './Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useApp();
+  const redirectFrom = location.state?.from as string | undefined;
+  const redirectFile = location.state?.file as File | undefined;
+
+  const goToDestination = () => {
+    if (redirectFrom) {
+      navigate(redirectFrom, { state: redirectFile ? { file: redirectFile } : undefined, replace: true });
+    } else {
+      navigate('/app');
+    }
+  };
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
@@ -34,7 +45,7 @@ const Login = () => {
           plan: 'free',
           photo: userInfo.picture,
         });
-        navigate('/app');
+        goToDestination();
       } catch (err) {
         console.error('Failed to fetch Google user info', err);
         setError('Google login failed. Please try again.');
@@ -66,7 +77,7 @@ const Login = () => {
         email,
         plan: 'free',
       });
-      navigate('/app');
+      goToDestination();
       setIsLoading(false);
     }, 800);
   };

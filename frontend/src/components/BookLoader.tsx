@@ -20,24 +20,26 @@ interface BookLoaderProps {
 
 type Phase = 'closed' | 'opening' | 'open' | 'closing' | 'flying';
 
-const STEP_THEME: Record<string, string> = {
-  'Doc Ingestion': 'Reading the clauses...',
-  'Clause Classification': 'Sorting the parchment...',
-  'Compliance Check': 'Confirming all changes...',
-  'Risk Assessment': 'Weighing the risks...',
-  'Negotiator Agent': "Drafting counsel's reply...",
-};
+const READING_LINES = [
+  'Reading the clauses...',
+  'Sorting the parchment...',
+  'Cross-referencing precedent...',
+  'Weighing the risks...',
+  'Consulting the codices...',
+  "Drafting counsel's reply...",
+];
 
-const BookLoader = ({ fileName, agents, complete, onFinished }: BookLoaderProps) => {
+const LINE_DURATION_MS = 3000;
+const MIN_OPEN_MS = 5000;
+
+const BookLoader = ({ fileName, agents: _agents, complete, onFinished }: BookLoaderProps) => {
   const [phase, setPhase] = useState<Phase>('closed');
   const [typed, setTyped] = useState('');
   const typedLineRef = useRef('');
+  const [lineIndex, setLineIndex] = useState(0);
 
-  const activeAgent = agents.find(a => a.status === 'active');
-  const lastDone = [...agents].reverse().find(a => a.status === 'done');
-  const trackedAgent = activeAgent ?? lastDone;
-  const currentLine = trackedAgent
-    ? STEP_THEME[trackedAgent.name] || `${trackedAgent.name}...`
+  const currentLine = phase === 'open' || phase === 'closing' || phase === 'flying'
+    ? READING_LINES[lineIndex % READING_LINES.length]
     : 'Opening the ledger...';
 
   useEffect(() => {
@@ -49,6 +51,14 @@ const BookLoader = ({ fileName, agents, complete, onFinished }: BookLoaderProps)
     if (phase !== 'opening') return;
     const t = setTimeout(() => setPhase('open'), 900);
     return () => clearTimeout(t);
+  }, [phase]);
+
+  useEffect(() => {
+    if (phase !== 'open') return;
+    const id = setInterval(() => {
+      setLineIndex(i => (i + 1) % READING_LINES.length);
+    }, LINE_DURATION_MS);
+    return () => clearInterval(id);
   }, [phase]);
 
   useEffect(() => {
@@ -71,6 +81,11 @@ const BookLoader = ({ fileName, agents, complete, onFinished }: BookLoaderProps)
   const onFinishedRef = useRef(onFinished);
   useEffect(() => { onFinishedRef.current = onFinished; }, [onFinished]);
 
+  const openedAtRef = useRef<number | null>(null);
+  useEffect(() => {
+    if (phase === 'open') openedAtRef.current = Date.now();
+  }, [phase]);
+
   const closeStartedRef = useRef(false);
 
   useEffect(() => {
@@ -81,6 +96,12 @@ const BookLoader = ({ fileName, agents, complete, onFinished }: BookLoaderProps)
       if (cancelled || closeStartedRef.current) return;
       if (phaseRef.current !== 'open') {
         setTimeout(tryStartClosing, 100);
+        return;
+      }
+      const elapsed = openedAtRef.current ? Date.now() - openedAtRef.current : 0;
+      const remaining = MIN_OPEN_MS - elapsed;
+      if (remaining > 0) {
+        setTimeout(tryStartClosing, remaining);
         return;
       }
       closeStartedRef.current = true;

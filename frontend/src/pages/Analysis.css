@@ -15,6 +15,34 @@
   padding: 32px;
 }
 
+.analysis-error-card {
+  width: 420px;
+  max-width: 90vw;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  color: var(--risk-critical, #e2555a);
+}
+
+.analysis-error-card h3 {
+  color: var(--text-primary);
+  margin: 0;
+  font-size: 18px;
+}
+
+.analysis-error-card p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 8px;
+}
+
 .loading-header {
   display: flex;
   align-items: center;

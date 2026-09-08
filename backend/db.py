@@ -188,6 +188,17 @@ def get_contract_by_id(contract_id: str) -> dict | None:
             return dict(row) if row else None
 
 
+def count_analyses_today(user_id: str) -> int:
+    """Count how many analyses this user has run since midnight (server time)."""
+    with get_conn() as conn:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT COUNT(*) FROM contracts
+                WHERE user_id = %s AND analyzed_at >= date_trunc('day', now());
+            """, (user_id,))
+            return cur.fetchone()[0]
+
+
 def get_user_stats(user_id: str) -> dict:
     """Return aggregated stats for the profile page."""
     with get_conn() as conn:
