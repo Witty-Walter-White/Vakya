@@ -74,10 +74,15 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      
+      <div className="dashboard-glow page-glow" />
+
       <div className="dashboard-header">
         <div>
-          <h2 className="dashboard-title">{t('dashboard.title')}</h2>
+          <div className="page-eyebrow">
+            <span className="page-eyebrow-dot" />
+            Case Files
+          </div>
+          <h2 className="dashboard-title gradient-text">{t('dashboard.title')}</h2>
           <p className="text-sm text-secondary" style={{ marginTop: 4 }}>
             {loading && t('dashboard.loading')}
           </p>

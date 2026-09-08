@@ -1,21 +1,36 @@
 .upload-page {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: calc(100vh - 60px);
   padding: 40px;
+  overflow: hidden;
   animation: fadeUp 0.4s ease forwards;
 }
 
-.upload-header {
-  text-align: center;
-  margin-bottom: 40px;
+.upload-glow-orb {
+  width: 480px;
+  height: 320px;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.28), transparent 70%);
 }
+
+.upload-header {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 32px;
+}
+.upload-header .page-eyebrow { margin-bottom: 16px; }
 .upload-header h1 {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 8px;
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 10px;
 }
 .upload-header p {
   color: var(--text-secondary);
@@ -24,12 +39,14 @@
 
 .upload-dropzone {
   position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 600px;
   padding: 60px 40px;
   border: 2px dashed var(--border-default);
   border-radius: var(--radius-xl);
   background: var(--bg-surface);
+  box-shadow: var(--shadow-lg);
   text-align: center;
   transition: all var(--t-fast);
   display: flex;
@@ -103,22 +120,54 @@
   font-weight: 600;
 }
 
+.upload-pipeline {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 720px;
+  margin-top: 44px;
+  padding: 24px 20px 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+}
+
+.upload-pipeline-label {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 18px;
+}
+
 .upload-features {
+  position: relative;
+  z-index: 1;
   display: flex;
   gap: 24px;
-  margin-top: 40px;
-  max-width: 600px;
+  margin-top: 24px;
+  max-width: 720px;
   width: 100%;
 }
 .uf-card {
   flex: 1;
   display: flex;
   gap: 16px;
+  align-items: flex-start;
   padding: 20px;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
+  transition: all var(--t-fast);
 }
-.uf-icon { color: var(--ai-secondary); flex-shrink: 0; }
+.uf-card:hover {
+  border-color: var(--border-default);
+  background: var(--bg-elevated);
+  transform: translateY(-2px);
+}
+.uf-card .section-number { flex-shrink: 0; margin-top: 2px; }
 .uf-text h4 { font-size: 14px; margin-bottom: 4px; }
 .uf-text span { font-size: 12px; color: var(--text-secondary); line-height: 1.5; display: block; }

@@ -334,3 +334,113 @@ p  { color: var(--text-secondary); line-height: 1.6; }
 .text-warning   { color: var(--risk-warning); }
 .text-safe      { color: var(--risk-safe); }
 .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+
+/* Shared "premium" decorative utilities — reused across /app pages so they
+   read as one system with the landing page (same glow, badge, gradient-text
+   and numbered-card language, not just the same CSS variables). */
+
+.page-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.page-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: var(--bg-elevated);
+  position: relative;
+  z-index: 1;
+}
+
+.page-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ai-primary);
+  box-shadow: 0 0 8px var(--ai-primary);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--ai-primary), #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-number {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-tertiary);
+}
+
+.pipeline-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.pipeline-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.pipeline-node-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ai-glow);
+  color: var(--ai-secondary);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  transition: all var(--t-fast);
+}
+
+.pipeline-node:hover .pipeline-node-icon {
+  box-shadow: 0 0 20px var(--ai-glow-strong);
+  transform: translateY(-2px);
+}
+
+.pipeline-node-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+.pipeline-connector {
+  width: 32px;
+  height: 1px;
+  background: var(--border-default);
+  margin: 20px 2px 0;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .pipeline-connector { display: none; }
+}

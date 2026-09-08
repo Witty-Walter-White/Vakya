@@ -29,16 +29,24 @@ const Settings = () => {
 
   return (
     <div className="settings-page">
+      <div className="settings-glow page-glow" />
+
       <div className="settings-header">
-        <h1 className="settings-title">{t('settings.title')}</h1>
+        <div className="page-eyebrow">
+          <span className="page-eyebrow-dot" />
+          Chambers
+        </div>
+        <h1 className="settings-title gradient-text">{t('settings.title')}</h1>
         <p className="settings-sub">{t('settings.sub')}</p>
       </div>
 
       <div className="settings-body">
-        
+
         <section className="settings-section">
           <div className="settings-section-header">
-            <Globe size={16} className="settings-icon" />
+            <span className="settings-icon-chip settings-icon-chip--indigo">
+              <Globe size={16} />
+            </span>
             <div>
               <h2>{t('settings.language')}</h2>
               <p>{t('settings.language.desc')}</p>
@@ -68,7 +76,9 @@ const Settings = () => {
         
         <section className="settings-section">
           <div className="settings-section-header">
-            {theme === 'dark' ? <Moon size={16} className="settings-icon" /> : <Sun size={16} className="settings-icon" />}
+            <span className="settings-icon-chip settings-icon-chip--amber">
+              {theme === 'dark' ? <Moon size={16} /> : <Sun size={16} />}
+            </span>
             <div>
               <h2>{t('settings.appearance')}</h2>
               <p>{t('settings.appearance.desc')}</p>
@@ -105,7 +115,9 @@ const Settings = () => {
         
         <section className="settings-section">
           <div className="settings-section-header">
-            <Sliders size={16} className="settings-icon" />
+            <span className="settings-icon-chip settings-icon-chip--safe">
+              <Sliders size={16} />
+            </span>
             <div>
               <h2>{t('settings.analysisDefaults')}</h2>
               <p>{t('settings.analysisDefaults.desc')}</p>
@@ -170,7 +182,9 @@ const Settings = () => {
         
         <section className="settings-section">
           <div className="settings-section-header">
-            <Database size={16} className="settings-icon" />
+            <span className="settings-icon-chip settings-icon-chip--critical">
+              <Database size={16} />
+            </span>
             <div>
               <h2>{t('settings.dataPrivacy')}</h2>
               <p>{t('settings.dataPrivacy.desc')}</p>
