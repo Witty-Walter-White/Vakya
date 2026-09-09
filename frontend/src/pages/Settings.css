@@ -9,15 +9,6 @@
   overflow: hidden;
 }
 
-.settings-glow {
-  width: 380px;
-  height: 240px;
-  top: -120px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.22), transparent 70%);
-}
-
 .settings-header {
   position: relative;
   z-index: 1;
@@ -88,7 +79,7 @@
   flex-shrink: 0;
 }
 
-.settings-icon-chip--indigo   { background: var(--ai-glow); color: var(--ai-secondary); border: 1px solid rgba(99,102,241,0.25); }
+.settings-icon-chip--indigo   { background: var(--ai-glow); color: var(--ai-secondary); border: 0.5px solid var(--ai-primary); }
 .settings-icon-chip--amber    { background: var(--risk-warning-bg); color: var(--risk-warning); border: 1px solid var(--risk-warning-border); }
 .settings-icon-chip--safe     { background: var(--risk-safe-bg); color: var(--risk-safe); border: 1px solid var(--risk-safe-border); }
 .settings-icon-chip--critical { background: var(--risk-critical-bg); color: var(--risk-critical); border: 1px solid var(--risk-critical-border); }
@@ -463,17 +454,15 @@
   padding: 10px 24px;
   border-radius: var(--radius-md);
   background: var(--ai-primary);
-  color: #fff;
+  color: #2a1a08;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   border: none;
   font-family: var(--font-sans);
-  transition: all var(--t-fast);
+  transition: background var(--t-fast);
 }
 
 .settings-save-btn:hover {
-  background: #5254cc;
-  box-shadow: 0 0 16px var(--ai-glow-strong);
-  transform: translateY(-1px);
+  background: #8f5f26;
 }

@@ -1,8 +1,14 @@
+/* "Courtroom Luxury" design tokens live in index.css, shared by .app-shell
+   (every /app/* route) and .login-page — every non-landing route gets the
+   same editorial legal-terminal look. This file adds the shell's own layout
+   and the shared-component overrides specific to the app chrome. */
 .app-shell {
   display: flex;
   height: 100vh;
   overflow: hidden;
   background: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
 }
 
 
@@ -38,15 +44,13 @@
   align-items: center;
   background: white;
   padding: 10px 14px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border-radius: 2px;
   margin-bottom: 8px;
-  border: 1px solid rgba(255,255,255,0.1);
-  transition: transform var(--t-fast), box-shadow var(--t-fast);
+  border: 1px solid var(--border-subtle);
+  transition: border-color var(--t-fast);
 }
 .logo-card:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  border-color: var(--ai-primary);
   background: white;
 }
 .sidebar-logo-img {
@@ -81,7 +85,8 @@
 .nav-item.active {
   background: var(--ai-glow);
   color: var(--ai-secondary);
-  border: 1px solid rgba(99,102,241,0.2);
+  border-left: 2px solid var(--ai-primary);
+  border-radius: 0;
 }
 
 
@@ -106,7 +111,7 @@
   height: 28px;
   border-radius: 50%;
   background: var(--ai-primary);
-  color: white;
+  color: #2a1a08;
   font-size: 11px;
   font-weight: 700;
   display: flex;
@@ -265,7 +270,7 @@
   height: 32px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--ai-primary), var(--ai-secondary));
-  color: #fff;
+  color: #2a1a08;
   font-size: 12px;
   font-weight: 700;
   display: flex;
@@ -370,10 +375,9 @@
 
 .sidebar-signup-btn {
   background: var(--ai-primary);
-  color: #fff;
+  color: #2a1a08;
 }
 
 .sidebar-signup-btn:hover {
-  background: #5254cc;
-  box-shadow: 0 0 12px var(--ai-glow-strong);
+  background: #8f5f26;
 }

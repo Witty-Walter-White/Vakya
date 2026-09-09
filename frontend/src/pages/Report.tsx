@@ -14,7 +14,7 @@ const clauseCategories = [
   { label: 'Confidentiality', pct: 12, color: '#10b981' },
   { label: 'Liability', pct: 18, color: '#ef4444' },
   { label: 'Jurisdiction', pct: 8, color: '#64748b' },
-  { label: 'Other', pct: 25, color: '#6366f1' },
+  { label: 'Other', pct: 25, color: '#a9722f' },
 ];
 
 const actionItems = [

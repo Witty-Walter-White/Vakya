@@ -10,15 +10,6 @@
   animation: fadeUp 0.4s ease forwards;
 }
 
-.upload-glow-orb {
-  width: 480px;
-  height: 320px;
-  top: -60px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.28), transparent 70%);
-}
-
 .upload-header {
   position: relative;
   z-index: 1;
@@ -77,11 +68,11 @@
 .upload-dropzone.active .upload-glow { opacity: 0.15; }
 
 .upload-icon-wrap {
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: 60px;
   background: var(--ai-glow);
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  border-radius: 50%;
+  border: 0.5px solid var(--ai-primary);
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,27 +138,23 @@
   position: relative;
   z-index: 1;
   display: flex;
-  gap: 24px;
   margin-top: 24px;
   max-width: 720px;
   width: 100%;
+  border: 0.5px solid var(--border-default);
 }
 .uf-card {
-  flex: 1;
   display: flex;
   gap: 16px;
   align-items: flex-start;
-  padding: 20px;
+  padding: 20px 22px;
   background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  transition: all var(--t-fast);
+  border-left: 0.5px solid var(--border-default);
+  transition: background var(--t-fast);
 }
-.uf-card:hover {
-  border-color: var(--border-default);
-  background: var(--bg-elevated);
-  transform: translateY(-2px);
-}
+.uf-card:first-child { border-left: none; flex: 1.4; }
+.uf-card:last-child { flex: 1; }
+.uf-card:hover { background: var(--bg-elevated); }
 .uf-card .section-number { flex-shrink: 0; margin-top: 2px; }
 .uf-text h4 { font-size: 14px; margin-bottom: 4px; }
 .uf-text span { font-size: 12px; color: var(--text-secondary); line-height: 1.5; display: block; }

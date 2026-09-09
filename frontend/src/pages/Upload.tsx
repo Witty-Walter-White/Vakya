@@ -42,7 +42,7 @@ const Upload = () => {
 
   return (
     <div className="upload-page">
-      <div className="upload-glow-orb page-glow" />
+      <div className="page-glow" />
 
       <div className="upload-header">
         <div className="page-eyebrow">

@@ -78,7 +78,7 @@
 .loading-step--active {
   background: var(--ai-glow);
   color: var(--text-primary);
-  border: 1px solid rgba(99,102,241,0.2);
+  border: 0.5px solid var(--ai-primary);
 }
 .loading-step--pending { color: var(--text-disabled); }
 
@@ -194,7 +194,7 @@
   flex: 1;
   overflow-y: auto;
   padding: 24px;
-  background: #141414;
+  background: var(--bg-surface);
 }
 
 .mock-doc {
@@ -235,8 +235,8 @@
 .doc-clause--warning  { border-left-color: #f59e0b; background: rgba(245,158,11,0.05); }
 .doc-clause--safe     { border-left-color: #10b981; background: rgba(16,185,129,0.05); }
 
-.doc-clause--selected { outline: 2px solid #6366f1; outline-offset: 2px; }
-.doc-clause:hover { outline: 1px solid rgba(99,102,241,0.4); }
+.doc-clause--selected { outline: 2px solid var(--ai-primary); outline-offset: 2px; }
+.doc-clause:hover { outline: 1px solid var(--ai-glow-strong); }
 
 .doc-clause-header {
   display: flex;
@@ -260,18 +260,18 @@
 .doc-clause-missing {
   margin-top: 24px;
   padding: 12px 16px;
-  border: 1px dashed #94a3b8;
+  border: 1px dashed var(--border-strong);
   border-radius: 4px;
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #64748b;
+  color: var(--text-tertiary);
   font-family: var(--font-sans);
   font-size: 13px;
   cursor: pointer;
   transition: all var(--t-fast);
 }
-.doc-clause-missing:hover { border-color: #6366f1; color: #6366f1; background: rgba(99,102,241,0.05); }
+.doc-clause-missing:hover { border-color: var(--ai-primary); color: var(--ai-secondary); background: var(--ai-glow); }
 
 
 .pane-tabs {
@@ -348,17 +348,17 @@
 .trace-agent-header:hover { background: var(--bg-hover); }
 
 .trace-agent-icon {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
-.trace-agent-icon--done    { background: var(--risk-safe-bg); color: var(--risk-safe); border: 1px solid var(--risk-safe-border); }
-.trace-agent-icon--active  { background: var(--ai-glow); color: var(--ai-primary); border: 1px solid rgba(99,102,241,0.3); }
-.trace-agent-icon--pending { background: var(--bg-hover); color: var(--text-disabled); border: 1px solid var(--border-subtle); }
+.trace-agent-icon--done    { background: var(--risk-safe-bg); color: var(--risk-safe); border: 0.5px solid var(--risk-safe-border); }
+.trace-agent-icon--active  { background: var(--ai-glow); color: var(--ai-primary); border: 0.5px solid var(--ai-primary); }
+.trace-agent-icon--pending { background: var(--bg-hover); color: var(--text-disabled); border: 0.5px solid var(--border-subtle); }
 
 .trace-agent-meta { flex: 1; min-width: 0; }
 .trace-agent-name { display: block; font-size: 13px; font-weight: 500; }
@@ -374,7 +374,7 @@
   flex-direction: column;
   gap: 6px;
   padding-top: 10px;
-  background: #0d0d0d;
+  background: rgba(74, 50, 16, 0.06);
 }
 
 .trace-thought {

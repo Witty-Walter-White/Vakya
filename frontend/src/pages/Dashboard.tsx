@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  UploadCloud, AlertTriangle, Clock, FileWarning,
-  TrendingUp, ShieldCheck, FilePlus, ArrowUpRight, Loader2, Database
-} from 'lucide-react';
+import { UploadCloud, Clock, FileWarning, Loader2, Database } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { fetchContracts } from '../api/client';
 import './Dashboard.css';
@@ -74,7 +71,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <div className="dashboard-glow page-glow" />
+      <div className="page-glow" />
 
       <div className="dashboard-header">
         <div>
@@ -103,34 +100,23 @@ const Dashboard = () => {
 
       
       <div className="stat-row">
-        <div className="stat-card">
-          <div className="stat-card-icon" style={{ background: 'var(--risk-critical-bg)', color: 'var(--risk-critical)', border: '1px solid var(--risk-critical-border)' }}>
-            <FileWarning size={16} />
+        <div className="stat-cell">
+          <div className="stat-cell-value" style={{ color: 'var(--risk-critical)' }}>
+            {loading ? '–' : String(criticalCount).padStart(2, '0')}
           </div>
-          <div>
-            <div className="stat-card-value">{loading ? '–' : criticalCount}</div>
-            <div className="stat-card-label">{t('dashboard.criticalRisksCard')}</div>
-          </div>
-          <ArrowUpRight size={14} className="stat-card-trend" />
+          <div className="stat-cell-label">{t('dashboard.criticalRisksCard')}</div>
         </div>
-        <div className="stat-card">
-          <div className="stat-card-icon" style={{ background: 'var(--risk-warning-bg)', color: 'var(--risk-warning)', border: '1px solid var(--risk-warning-border)' }}>
-            <AlertTriangle size={16} />
+        <div className="stat-cell">
+          <div className="stat-cell-value" style={{ color: 'var(--risk-warning)' }}>
+            {loading ? '–' : String(warningCount).padStart(2, '0')}
           </div>
-          <div>
-            <div className="stat-card-value">{loading ? '–' : warningCount}</div>
-            <div className="stat-card-label">{t('dashboard.moderateRiskCard')}</div>
-          </div>
+          <div className="stat-cell-label">{t('dashboard.moderateRiskCard')}</div>
         </div>
-
-        <div className="stat-card">
-          <div className="stat-card-icon" style={{ background: 'var(--ai-glow)', color: 'var(--ai-secondary)', border: '1px solid rgba(99,102,241,0.25)' }}>
-            <FilePlus size={16} />
+        <div className="stat-cell">
+          <div className="stat-cell-value">
+            {loading ? '–' : String(contracts.length).padStart(2, '0')}
           </div>
-          <div>
-            <div className="stat-card-value">{loading ? '–' : contracts.length}</div>
-            <div className="stat-card-label">{t('dashboard.totalAnalysedCard')}</div>
-          </div>
+          <div className="stat-cell-label">{t('dashboard.totalAnalysedCard')}</div>
         </div>
       </div>
 

@@ -28,7 +28,7 @@
   height: 72px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--ai-primary), var(--ai-secondary));
-  color: #fff;
+  color: #2a1a08;
   font-size: 22px;
   font-weight: 700;
   display: flex;
@@ -62,7 +62,7 @@
 
 .profile-avatar-change:hover {
   background: var(--ai-primary);
-  color: #fff;
+  color: #2a1a08;
 }
 
 .profile-header-info {
@@ -102,7 +102,7 @@
 .profile-plan-badge.pro {
   background: var(--ai-glow);
   color: var(--ai-secondary);
-  border-color: rgba(99, 102, 241, 0.3);
+  border-color: var(--ai-primary);
 }
 
 
@@ -263,19 +263,18 @@
   padding: 9px 20px;
   border-radius: var(--radius-md);
   background: var(--ai-primary);
-  color: #fff;
+  color: #2a1a08;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   border: none;
-  transition: all var(--t-fast);
+  transition: background var(--t-fast);
   font-family: var(--font-sans);
   width: fit-content;
 }
 
 .profile-save-btn:hover:not(:disabled) {
-  background: #5254cc;
-  box-shadow: 0 0 12px var(--ai-glow-strong);
+  background: #8f5f26;
 }
 
 .profile-save-btn:disabled {

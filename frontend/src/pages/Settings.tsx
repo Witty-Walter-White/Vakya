@@ -29,7 +29,7 @@ const Settings = () => {
 
   return (
     <div className="settings-page">
-      <div className="settings-glow page-glow" />
+      <div className="page-glow" />
 
       <div className="settings-header">
         <div className="page-eyebrow">
