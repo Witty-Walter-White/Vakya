@@ -86,8 +86,8 @@
   margin-bottom: 8px;
 }
 .upload-dropzone p {
-  color: var(--text-tertiary);
-  font-size: 14px;
+  color: var(--text-secondary);
+  font-size: 15px;
   margin-bottom: 24px;
 }
 
@@ -126,11 +126,11 @@
 .upload-pipeline-label {
   display: block;
   text-align: center;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   margin-bottom: 18px;
 }
 

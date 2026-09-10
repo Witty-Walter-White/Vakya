@@ -359,9 +359,9 @@ p  { color: var(--text-secondary); line-height: 1.6; }
   --border-strong:  rgba(74, 50, 16, 0.38);
 
   --text-primary:   #3a2a10;
-  --text-secondary: #6b4f26;
-  --text-tertiary:  #8a6a3a;
-  --text-disabled:  #b89b6a;
+  --text-secondary: #5c431f;
+  --text-tertiary:  #74582e;
+  --text-disabled:  #a4854f;
 
   --ai-primary:     #a9722f;
   --ai-secondary:   #c9a04a;
@@ -532,9 +532,9 @@ p  { color: var(--text-secondary); line-height: 1.6; }
 }
 
 .pipeline-node-label {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   white-space: nowrap;
 }
 
